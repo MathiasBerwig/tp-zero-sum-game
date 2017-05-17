@@ -22,6 +22,9 @@ public class Player {
     // Indicates if first strategy choose is random
     private boolean startRandom;
 
+    // Track the number of victories and defeats of this player
+    private int victories, defeats;
+
     // Chooses the first strategy
     private static Random random;
 
@@ -99,6 +102,22 @@ public class Player {
 
     public String getPlayHistory() {
         return playHistory;
+    }
+
+    public int getVictories() {
+        return victories;
+    }
+
+    public int getDefeats() {
+        return defeats;
+    }
+
+    public void increaseVictories() {
+        victories++;
+    }
+
+    public void increaseDefeats() {
+        defeats++;
     }
 
     @Override
