@@ -13,6 +13,9 @@ public class Player {
     // All possible strategies
     private final String strategies;
 
+    // How many times each strategy was played
+    private int[] strategyCount;
+
     // The history of strategies chosen
     private String playHistory;
 
@@ -26,6 +29,7 @@ public class Player {
         this.name = name;
         this.payoffs = playRows ? payoffs : Utils.trasposeAndChangeSignMatrix(payoffs);
         this.strategies = strategies;
+        this.strategyCount = new int[strategies.length()];
         this.playHistory = "";
         this.startRandom = startRandom;
         if (startRandom) random = new Random();
@@ -40,11 +44,9 @@ public class Player {
         if (playHistory.isEmpty()) {
             int firstStrategy = startRandom ? random.nextInt(strategies.length()) : 0;
             playHistory = String.valueOf(strategies.charAt(firstStrategy));
+            strategyCount[firstStrategy]++;
             return firstStrategy;
         }
-
-        // Count how many times the opponent has played each of his strategies
-        final int[] strategyCount = opponent.countStrategiesPlayed();
 
         // Calculate the gain of each strategy if played
         final double[] strategiesGain = new double[strategies.length()];
@@ -52,34 +54,23 @@ public class Player {
             for (int j = 0; j < opponent.strategies.length(); j++) {
 
                 // If opponent has not played that strategy, we don't consider it
-                if (strategyCount[j] == 0) {
+                if (opponent.strategyCount[j] == 0) {
                     continue;
                 }
 
                 // Gain for row is: payoff * how many times opponent played that strategy
-                strategiesGain[i] += payoffs[i][j] * strategyCount[j];
+                strategiesGain[i] += payoffs[i][j] * opponent.strategyCount[j];
             }
         }
 
         // Get the index of strategy with the biggest gain
         final int chosenStrategy = chooseBestGain(strategiesGain);
 
-        // Add chosen strategy to plays history
+        // Add chosen strategy to statistics
         playHistory = playHistory.concat(String.valueOf(strategies.charAt(chosenStrategy)));
+        strategyCount[chosenStrategy]++;
 
         return chosenStrategy;
-    }
-
-    /**
-     * @return the number of times this player has played each of his {@link #strategies}. The resultant array has the
-     * same ordering than the strategies array.
-     */
-    private int[] countStrategiesPlayed() {
-        final int[] result = new int[strategies.length()];
-        for (int i = 0; i < result.length; i++) {
-            result[i] = Utils.countOccurrences(playHistory, strategies.charAt(i));
-        }
-        return result;
     }
 
     private int chooseBestGain(double[] gains) {

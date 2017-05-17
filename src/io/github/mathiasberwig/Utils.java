@@ -21,17 +21,4 @@ public class Utils {
 
         return trasposedMatrix;
     }
-
-    /**
-     * Count how many times the {@code character} appears in the {@code string}.
-     */
-    public static int countOccurrences(String string, char character) {
-        int count = 0;
-        for (int i = 0; i < string.length(); i++) {
-            if (string.charAt(i) == character) {
-                count++;
-            }
-        }
-        return count;
-    }
 }
