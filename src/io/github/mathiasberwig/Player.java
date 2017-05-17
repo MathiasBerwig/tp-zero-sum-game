@@ -34,8 +34,8 @@ public class Player {
             return firstStrategy;
         }
 
-        // Transpose and invert values of the matrix if user play columns
-        final int[][] mPayoffs = playRows ? payoffs : Utils.trasposeAndInvertMatrix(payoffs);
+        // Transpose and change sign of values of the matrix if user play columns
+        final int[][] mPayoffs = playRows ? payoffs : Utils.trasposeAndChangeSignMatrix(payoffs);
 
         // Count how many times the opponent has played each of his strategies
         final int[] strategyCount = opponent.countStrategiesPlayed();

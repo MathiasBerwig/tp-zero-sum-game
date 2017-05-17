@@ -7,7 +7,7 @@ public class Utils {
      * @param matrix input matrix.
      * @return transposed with signal-inverted values matrix.
      */
-    public static int[][] trasposeAndInvertMatrix(int[][] matrix) {
+    public static int[][] trasposeAndChangeSignMatrix(int[][] matrix) {
         int m = matrix.length;
         int n = matrix[0].length;
 
