@@ -11,6 +11,6 @@ public class Main {
 /*       C */  {-1,  2,  1, -1,  2, -3}
         };
 
-        new Game(payoffs, 15, false).play();
+        new Game(payoffs, 15, false).start();
     }
 }

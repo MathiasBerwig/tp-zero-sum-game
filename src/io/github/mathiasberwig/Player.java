@@ -85,6 +85,22 @@ public class Player {
         return idxOfBest;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getStrategies() {
+        return strategies;
+    }
+
+    public int[] getStrategyCount() {
+        return strategyCount;
+    }
+
+    public String getPlayHistory() {
+        return playHistory;
+    }
+
     @Override
     public String toString() {
         return name;

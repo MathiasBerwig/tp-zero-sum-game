@@ -13,7 +13,7 @@ public class Game {
         this.startRandom = startRandom;
     }
 
-    public void play() {
+    public void start() {
         printPayoffs(payoffs);
 
         final Player rose = new Player("Rose", true, payoffs, "ABC", startRandom);
@@ -21,6 +21,7 @@ public class Game {
 
         int roseVictories = 0, colinVictories = 0, draws = 0;
 
+        // Play n times
         for (int i = 0; i < numberOfPlays; i++) {
             // Get the chosen strategy for each player
             final int roseStrategy = rose.play(colin);
