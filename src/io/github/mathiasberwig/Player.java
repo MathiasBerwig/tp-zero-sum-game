@@ -5,16 +5,16 @@ import java.util.Random;
 public class Player {
 
     private final String name;
-    private final boolean playRows;
+    private final int [][] payoffs;
     private final String strategies;
     private String playHistory;
     private boolean startRandom;
 
     private static Random random;
 
-    public Player(String name, boolean playRows, String strategies, boolean startRandom) {
+    public Player(String name, boolean playRows, int[][] payoffs, String strategies, boolean startRandom) {
         this.name = name;
-        this.playRows = playRows;
+        this.payoffs = playRows ? payoffs : Utils.trasposeAndChangeSignMatrix(payoffs);
         this.strategies = strategies;
         this.playHistory = "";
         this.startRandom = startRandom;
@@ -25,17 +25,13 @@ public class Player {
         return strategies.charAt(index);
     }
 
-    public int play(int[][] payoffs, Player opponent) {
-
+    public int play(Player opponent) {
         // Play first strategy at the begin of the game
         if (playHistory.isEmpty()) {
             int firstStrategy = startRandom ? random.nextInt(strategies.length()) : 0;
             playHistory = String.valueOf(strategies.charAt(firstStrategy));
             return firstStrategy;
         }
-
-        // Transpose and change sign of values of the matrix if user play columns
-        final int[][] mPayoffs = playRows ? payoffs : Utils.trasposeAndChangeSignMatrix(payoffs);
 
         // Count how many times the opponent has played each of his strategies
         final int[] strategyCount = opponent.countStrategiesPlayed();
@@ -51,7 +47,7 @@ public class Player {
                 }
 
                 // Gain for row is: payoff * how many times opponent played that strategy
-                strategiesGain[i] += mPayoffs[i][j] * strategyCount[j];
+                strategiesGain[i] += payoffs[i][j] * strategyCount[j];
             }
         }
 
