@@ -2,6 +2,8 @@ package io.github.mathiasberwig;
 
 public class Main {
 
+    private static char[] ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+
     public static void main(String... args) {
         final int[][] payoffs = {
               /*          Colin        */
@@ -14,17 +16,29 @@ public class Main {
         play(payoffs, 15, true);
     }
 
+    private static void printGame(final int[][] payoffs) {
+        System.out.printf("Playing with the following game: %n");
+        // for each row
+        for (int row = -1; row < payoffs.length; row++) {
+            // print row header
+            if (row == -1) System.out.print(" ");
+            else System.out.printf("%s", ALPHABET[row]);
+
+            // for each colum
+            for (int column = 0; column < payoffs[0].length; column++) {
+                // print column header | payoff
+                if (row == -1) System.out.printf("   %s ", ALPHABET[column]);
+                else System.out.printf("%+4d ", payoffs[row][column]);
+            }
+            // new line for next row
+            System.out.printf("%n");
+        }
+        // new line for end of game
+        System.out.printf("%n");
+    }
+
     public static void play(final int[][] payoffs, final int numberOfPlays, final boolean startRandom) {
-        System.out.printf("Running with the following game:%n%n" +
-                        "                    Colin%n" +
-                        "        |   A    B    C    D    E    F %n" +
-                        "       -|------------------------------%n" +
-                        "       A| %+3d  %+3d  %+3d  %+3d  %+3d  %+3d %n" +
-                        "Rose   B| %+3d  %+3d  %+3d  %+3d  %+3d  %+3d %n" +
-                        "       C| %+3d  %+3d  %+3d  %+3d  %+3d  %+3d %n%n",
-                payoffs[0][0], payoffs[0][1], payoffs[0][2], payoffs[0][3], payoffs[0][4], payoffs[0][5],
-                payoffs[1][0], payoffs[1][1], payoffs[1][2], payoffs[1][3], payoffs[1][4], payoffs[1][5],
-                payoffs[2][0], payoffs[2][1], payoffs[2][2], payoffs[2][3], payoffs[2][4], payoffs[2][5]);
+        printGame(payoffs);
 
         final Player rose = new Player("Rose", true, "ABC", startRandom);
         final Player colin = new Player("Colin", false, "ABCDEF", startRandom);
