@@ -4,12 +4,22 @@ import java.util.Random;
 
 public class Player {
 
+    // Name the player
     private final String name;
+
+    // The payoffs for this player
     private final int [][] payoffs;
+
+    // All possible strategies
     private final String strategies;
+
+    // The history of strategies chosen
     private String playHistory;
+
+    // Indicates if first strategy choose is random
     private boolean startRandom;
 
+    // Chooses the first strategy
     private static Random random;
 
     public Player(String name, boolean playRows, int[][] payoffs, String strategies, boolean startRandom) {
