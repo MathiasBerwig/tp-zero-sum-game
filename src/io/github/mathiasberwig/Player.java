@@ -80,7 +80,7 @@ public class Player {
         Double best = null;
         int idxOfBest = -1;
         for (int i = 0; i < gains.length; i++) {
-            if (best == null || gains[i] > best /*|| (!playRows && gains[i] < best)*/) {
+            if (best == null || gains[i] > best) {
                 idxOfBest = i;
                 best = gains[i];
             }
