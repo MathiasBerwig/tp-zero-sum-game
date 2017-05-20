@@ -85,7 +85,7 @@ public class Game {
             // calculate the percent of time (strategy count / total plays * 100)
             final float percentOfTime = (float) player.getStrategyCount()[s] / player.getPlayHistory().length() * 100;
             // print the value for strategy
-            System.out.printf("%4s %6.0f%%%n", player.getStrategies().charAt(s), percentOfTime);
+            System.out.printf("%4s %10.0f%%%n", player.getStrategies().charAt(s), percentOfTime);
         }
         System.out.println();
     }
