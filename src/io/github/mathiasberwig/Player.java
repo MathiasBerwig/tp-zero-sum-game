@@ -88,6 +88,25 @@ public class Player {
         return idxOfBest;
     }
 
+    public double[] calculateMeanGains(Player opponent) {
+        final double[] meanGains = new double[strategies.length()];
+        for (int s = 0; s < strategies.length(); s++) {
+            for (int os = 0; os < opponent.strategies.length(); os++) {
+                meanGains[s] += (double) payoffs[s][os] * opponent.strategyCount[os] / opponent.playHistory.length();
+            }
+        }
+        return meanGains;
+    }
+
+    public double calculateMeanGameResult(Player opponent) {
+        final double[] meanGains = calculateMeanGains(opponent);
+        double meanGame = 0;
+        for (int s = 0; s < strategies.length(); s++) {
+            meanGame += meanGains[s] * strategyCount[s] / playHistory.length();
+        }
+        return meanGame;
+    }
+
     public String getName() {
         return name;
     }

@@ -1,5 +1,7 @@
 package io.github.mathiasberwig;
 
+import javax.swing.plaf.OptionPaneUI;
+
 public class Game {
 
     private static char[] ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
@@ -58,6 +60,23 @@ public class Game {
         printStrategyStatsFor(rose);
         printStrategyStatsFor(colin);
         printGameTotals(rose, colin);
+        printMeanGainsFor(rose, colin);
+        printMeanGainsFor(colin, rose);
+        printMeanGameResultFor(rose, colin);
+        printMeanGameResultFor(colin, rose);
+    }
+
+    private static void printMeanGainsFor(Player player, Player opponent) {
+        System.out.printf("If %s play it's mixed strategy, %s's mean gains are:%n", opponent.getName(), player.getName());
+
+        final double[] meanGains = player.calculateMeanGains(opponent);
+        for (int s = 0; s < meanGains.length; s++)
+            System.out.printf("  %s) %.2f%n", player.getStrategyName(s), meanGains[s]);
+        System.out.println();
+    }
+
+    private void printMeanGameResultFor(Player player, Player opponent) {
+        System.out.printf("The mean game result for %s is %.2f.%n", player.getName(), player.calculateMeanGameResult(opponent));
     }
 
     private void printGameTotals(Player... players) {
