@@ -3,7 +3,7 @@ package io.github.mathiasberwig;
 public class Main {
 
     public static void main(String... args) {
-        final int[][] payoffs = {
+        final double[][] payoffs = {
               /*          Colin        */
               /* A   B   C   D   E   F */
 /*       A */  { 4, -4,  3,  2, -3,  3},

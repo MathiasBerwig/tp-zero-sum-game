@@ -1,16 +1,14 @@
 package io.github.mathiasberwig;
 
-import javax.swing.plaf.OptionPaneUI;
-
 public class Game {
 
     private static char[] ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-    private final int[][] payoffs;
+    private final double[][] payoffs;
     private final int numberOfPlays;
     private final boolean startRandom;
     private final boolean printIndividualChoices;
 
-    public Game(int[][] payoffs, int numberOfPlays, boolean startRandom, boolean printIndividualChoices) {
+    public Game(double[][] payoffs, int numberOfPlays, boolean startRandom, boolean printIndividualChoices) {
         this.payoffs = payoffs;
         this.numberOfPlays = numberOfPlays;
         this.startRandom = startRandom;
@@ -30,7 +28,7 @@ public class Game {
             final int colinStrategy = colin.play(rose);
 
             // Get the payoff for the chosen strategies
-            final int payoff = payoffs[roseStrategy][colinStrategy];
+            final double payoff = payoffs[roseStrategy][colinStrategy];
 
             // Increase the statistics
             if (payoff > 0) {
@@ -109,7 +107,7 @@ public class Game {
         System.out.println();
     }
 
-    private static void printPayoffs(final int[][] payoffs) {
+    private static void printPayoffs(final double[][] payoffs) {
         System.out.printf("Playing with the following game: %n");
         // for each row
         for (int row = -1; row < payoffs.length; row++) {
@@ -121,7 +119,7 @@ public class Game {
             for (int column = 0; column < payoffs[0].length; column++) {
                 // print column header | payoff
                 if (row == -1) System.out.printf("   %s ", ALPHABET[column]);
-                else System.out.printf("%+4d ", payoffs[row][column]);
+                else System.out.printf("%+.2f ", payoffs[row][column]);
             }
             // new line for next row
             System.out.printf("%n");
@@ -132,12 +130,12 @@ public class Game {
 
     @SuppressWarnings({"WeakerAccess", "SameParameterValue"})
     public static class Builder {
-        private int[][] payoffs;
+        private double[][] payoffs;
         private int numberOfPlays = 10;
         private boolean startRandom = false;
         private boolean printIndividualChoices = true;
 
-        public Builder payoffs(int[][] payoffs) {
+        public Builder payoffs(double[][] payoffs) {
             this.payoffs = payoffs;
             return this;
         }

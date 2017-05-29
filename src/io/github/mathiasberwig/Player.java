@@ -8,7 +8,7 @@ public class Player {
     private final String name;
 
     // The payoffs for this player
-    private final int [][] payoffs;
+    private final double [][] payoffs;
 
     // All possible strategies
     private final String strategies;
@@ -28,7 +28,7 @@ public class Player {
     // Chooses the first strategy
     private static Random random;
 
-    public Player(String name, boolean playRows, int[][] payoffs, String strategies, boolean startRandom) {
+    public Player(String name, boolean playRows, double[][] payoffs, String strategies, boolean startRandom) {
         this.name = name;
         this.payoffs = playRows ? payoffs : Utils.trasposeAndChangeSignMatrix(payoffs);
         this.strategies = strategies;
